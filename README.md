@@ -2,45 +2,6 @@
 JavaSpring을 이용하여 만든 내 블로그 백엔드 서버
 ![usecase.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8910d69a-ab5d-4380-a0b3-75c15e54e159/usecase.jpg)
 
-# API 명세서
-
-| 기능 | Method | URL | Return | Request | Response |
-| --- | --- | --- | --- | --- | --- |
-| 게시글 작성 | POST | /api/post | PostResponseDto | {
-"username":"name",
-"title" : "title:" ,
-"contents" : "contents" ,
-"password" : "1234"
-} | - |
-| 게시글 목록 조회 | GET | /api/post | List<PostResponseDto> | - | {
-"id": 1,
-"username": "name2",
-"title": "title2",
-"contents": "contents2",
-"date": "2023년 08월 30일 17시 14분 11초"
-},
-{
-"id": 2,
-"username": "name3",
-"title": "title3",
-"contents": "contents3",
-"date": "2023년 08월 30일 17시 14분 17초"
-} |
-| 선택한 게시글 조회 | GET | /api/post/{id} | List<PostResponseDto> | - | {
-"id": 2,
-"username": "name3",
-"title": "title3",
-"contents": "contents3",
-"date": "2023년 08월 30일 17시 14분 17초"
-} |
-| 선택한 게시글 수정 | PUT | /api/post/{id} | String | {
-"username" : "name3",
-"contents" : "이걸로 바꿈",
-"inputpassword" : "1234"
-} | Success |
-| 선택한 게시글 삭제 | DELETE | /api/post/{id} | String | {
-"inputpassword" : "1234"
-} | Success |
 
 1. 수정, 삭제 API의 request를 어떤 방식으로 사용하셨나요? (param, query, body)
 @PathVariable, @RequestBody를 사용하여 받았다.
