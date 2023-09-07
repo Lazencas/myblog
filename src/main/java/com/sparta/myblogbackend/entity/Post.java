@@ -15,7 +15,7 @@ import static java.time.LocalDateTime.now;
 @Setter
 @Table(name="post")
 @NoArgsConstructor
-public class Post {
+public class Post extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +26,7 @@ public class Post {
     private String username;
     @Column(name="content", nullable=false, length = 500)
     private String content;
-    @Column(name="createdAT", nullable=true)
-    private LocalDateTime cteatedAt;
+
 
 
     public Post(PostRequestDto requestDto) {
@@ -35,8 +34,6 @@ public class Post {
         this.username = requestDto.getUsername();
         this.content = requestDto.getContent();
         this.title = requestDto.getTitle();
-        this.cteatedAt = now();
-
     }
 
     public void update(PostRequestDto requestDto) {

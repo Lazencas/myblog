@@ -11,14 +11,15 @@ public class PostResponseDto {
     private String username;
     private String content;
     private LocalDateTime cteatedAt;
+    private LocalDateTime modifiedAt;
 
     public PostResponseDto(Post post){
 this.id = post.getId();
 this.title = post.getTitle();
 this.username = post.getUsername();
 this.content = post.getContent();
-this.cteatedAt = post.getCteatedAt();
-
+this.cteatedAt= post.getCreatedAt();
+this.modifiedAt = post.getModifiedAt();
     }
 
 }
