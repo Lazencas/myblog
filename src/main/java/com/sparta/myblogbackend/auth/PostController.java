@@ -3,9 +3,12 @@ package com.sparta.myblogbackend.auth;
 
 import com.sparta.myblogbackend.dto.PostRequestDto;
 import com.sparta.myblogbackend.dto.PostResponseDto;
+import com.sparta.myblogbackend.entity.Post;
 import com.sparta.myblogbackend.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -26,14 +29,14 @@ public class PostController {
 
     //전체 게시글 목록 조회
     @GetMapping("/posts")
-    public String getAllposts() {
+    public List<PostResponseDto> getAllposts() {
         return postService.getAllposts();
     }
 
     //선택한 게시글 조회
     @GetMapping("/posts/{id}")
-    public String getPost() {
-        return postService.getPost();
+    public Post getPost(Long id) {
+        return postService.getPost(id);
     }
 
     //선택한 게시글 수정
