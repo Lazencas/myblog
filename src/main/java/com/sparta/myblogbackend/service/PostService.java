@@ -30,21 +30,28 @@ public class PostService {
         return postResponseDto;
     }
 
-    //# 모든 게시글 조회
-    public List<PostResponseDto> getAllposts() {
-        //DB조회
-        return postRepository.findAll().stream().map(PostResponseDto::new).toList();
+//키워드로 조회
+    public List<PostResponseDto> getPostByKeyword(String keyword) {
+        return postRepository.findAllByContentContainsOrderByModifiedAtDesc(keyword).stream().map(PostResponseDto::new).toList();
     }
 
+
+    //# 모든 게시글 조회
+
+    public List<PostResponseDto> getAllposts() {
+        //DB조회
+        return postRepository.findAllByOrderByModifiedAtDesc().stream().map(PostResponseDto::new).toList();
+    }
     //# 선택 게시글 조회
+
     public Post getPost(Long id) {
         //DB조회
         return postRepository.findById(id).orElseThrow(() ->
             new IllegalArgumentException("선택한 게시물은 존재하지 않습니다.")
         );
     }
-
     //# 선택 게시글 수정
+
     @Transactional
     public Long updatePost(Long id, PostRequestDto requestDto) {
         //해당 메모가 DB에 존재하는지 확인
@@ -54,8 +61,8 @@ public class PostService {
 
  return id;
     }
-
     //# 선택 게시글 삭제
+
     public Long deletePost(Long id) {
         // 해당 메모가 DB에 존재하는지 확인
         Post post = findPost(id);
@@ -66,10 +73,10 @@ public class PostService {
 
 
 // 해당 메모가 DB에 존재하는지 확인
+
     private Post findPost(Long id){
       return postRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("선택한 게시물은 존재하지 않습니다.")
         );
     }
-
 }

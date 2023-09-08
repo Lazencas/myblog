@@ -51,5 +51,11 @@ public class PostController {
         return postService.deletePost(id);
     }
 
+    //키워드 게시글 조회
+    @GetMapping("/posts/content")
+    public List<PostResponseDto> getPostByKeyword(String keyword){
+        return  postService.getPostByKeyword(keyword);
+    }
+
 
 }
