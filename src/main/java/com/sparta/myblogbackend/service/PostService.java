@@ -73,6 +73,14 @@ public class PostService {
             throw new IllegalArgumentException("Token Error");
         }
         Claims info = jwtUtil.getUserInfoFromToken(token);
+        //토큰에서 사용자 권한 가져와서 어드민인지 체크하기
+        String auth = (String)info.get(JwtUtil.AUTHORIZATION_KEY);
+        System.out.println("auth: "+auth);
+        //어드민이면 그냥 수정하고 리턴
+        if(auth.equals("ADMIN")){
+            post.update(requestDto);
+            return post;
+        }
         //토큰에서 사용자 이름 가져오기
         String username = info.getSubject();
         //토큰의 사용자정보의 이름과 게시글의 사용자이름이 같은지 체크(본인이 쓴 글인지 확인)
@@ -95,6 +103,14 @@ public class PostService {
             throw new IllegalArgumentException("Token Error");
         }
         Claims info = jwtUtil.getUserInfoFromToken(token);
+        //토큰에서 사용자 권한 가져와서 어드민인지 체크하기
+        String auth = (String)info.get(JwtUtil.AUTHORIZATION_KEY);
+        System.out.println("auth: "+auth);
+        //어드민이면 그냥 수정하고 리턴
+        if(auth.equals("ADMIN")){
+            postRepository.delete(post);
+            return responseMethodDto.DeleteSuccessStatus();
+        }
         //토큰에서 사용자 이름 가져오기
         String username = info.getSubject();
         //토큰의 사용자정보의 이름과 게시글의 사용자이름이 같은지 체크(본인이 쓴 글인지 확인)
