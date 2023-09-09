@@ -1,5 +1,8 @@
 # UseCase
 ![image](https://github.com/Lazencas/myblog/assets/57083072/5233239a-8b64-45fc-bd5a-c2905ebaef00)
 
-![image](https://github.com/Lazencas/myblog/assets/57083072/08d02c39-2c2f-4c8b-b98c-5bcc09b6c7d5)
+![image](https://github.com/Lazencas/myblog/assets/57083072/eae62420-a70d-4101-b381-5ea8919fbdb5)
+
+![image](https://github.com/Lazencas/myblog/assets/57083072/e7193f2b-373c-4c60-a339-7601bb4fb212)
+
 
