@@ -84,12 +84,26 @@ public class PostService {
         }
     }
     //# 선택 게시글 삭제
-    public Long deletePost(Long id) {
+    public Post deletePost(Long id, String tokenValue) {
         // 해당 메모가 DB에 존재하는지 확인
         Post post = findPost(id);
+        //쿠키에서 토큰 값을 가져와서 스트링 변수 token에 넣음
+        String token = jwtUtil.substringToken(tokenValue);
+        //토큰의 유효성 검증
+        if(!jwtUtil.validateToken(token)){
+            throw new IllegalArgumentException("Token Error");
+        }
+        Claims info = jwtUtil.getUserInfoFromToken(token);
+        //토큰에서 사용자 이름 가져오기
+        String username = info.getSubject();
+        //토큰의 사용자정보의 이름과 게시글의 사용자이름이 같은지 체크(본인이 쓴 글인지 확인)
+        if(post.getUsername().equals(username)) {
             //해당 메모 삭제
-        postRepository.delete(post);
-        return id;
+            postRepository.delete(post);
+            return post;
+        }else {
+            throw new IllegalArgumentException("게시글을 작성한 사용자가 아닙니다.");
+        }
     }
 // 해당 메모가 DB에 존재하는지 확인
     private Post findPost(Long id){

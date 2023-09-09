@@ -48,8 +48,8 @@ public class PostController {
 
     //선택한 게시글 삭제
     @DeleteMapping("/posts/{id}")
-    public Long deletePost(@PathVariable Long id) {
-        return postService.deletePost(id);
+    public Post deletePost(@PathVariable Long id, @CookieValue(value = JwtUtil.AUTHORIZATION_HEADER) String tokenValue) {
+        return postService.deletePost(id, tokenValue);
     }
 
     //키워드 게시글 조회
