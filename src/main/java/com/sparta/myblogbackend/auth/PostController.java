@@ -4,6 +4,7 @@ package com.sparta.myblogbackend.auth;
 import com.sparta.myblogbackend.dto.PostRequestDto;
 import com.sparta.myblogbackend.dto.PostResponseDto;
 import com.sparta.myblogbackend.entity.Post;
+import com.sparta.myblogbackend.jwt.JwtUtil;
 import com.sparta.myblogbackend.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +24,8 @@ public class PostController {
 
     //게시글 작성
     @PostMapping("/writepost")
-    public PostResponseDto createPost(@RequestBody PostRequestDto requestDto) {
-        return postService.createPost(requestDto);
+    public PostResponseDto createPost(@RequestBody PostRequestDto requestDto, @CookieValue(value = JwtUtil.AUTHORIZATION_HEADER) String tokenValue) {
+        return postService.createPost(requestDto, tokenValue);
     }
 
     //전체 게시글 목록 조회
@@ -41,8 +42,8 @@ public class PostController {
 
     //선택한 게시글 수정
     @PutMapping("/posts/{id}")
-    public Long updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
-        return postService.updatePost(id, requestDto);
+    public Post updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto, @CookieValue(value = JwtUtil.AUTHORIZATION_HEADER) String tokenValue) {
+        return postService.updatePost(id, requestDto, tokenValue);
     }
 
     //선택한 게시글 삭제

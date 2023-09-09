@@ -29,7 +29,7 @@ public class JwtUtil {
     // Token 식별자
     public static final String BEARER_PREFIX = "Bearer ";
     // 토큰 만료시간
-    private final long TOKEN_TIME = 60 * 60 * 1000L; // 60분
+    private final long TOKEN_TIME = 600 * 600 * 1000L; // 60분
 
     @Value("${jwt.secret.key}") // Base64 Encode 한 SecretKey
     private String secretKey;
@@ -39,14 +39,13 @@ public class JwtUtil {
     // 로그 설정
     public static final Logger logger = LoggerFactory.getLogger("JWT 관련 로그");
 
-    @PostConstruct
+    @PostConstruct // 딱 한번만 받아오면 되는 값을, 사용 할때마다 요청을 불러오는것을 방지.
     public void init() {
         byte[] bytes = Base64.getDecoder().decode(secretKey);
         key = Keys.hmacShaKeyFor(bytes);
     }
 
     //#2 JWT 생성
-    // 토큰 생성
     public String createToken(String username, UserRoleEnum role) {
         Date date = new Date();
 
@@ -105,7 +104,6 @@ public class JwtUtil {
     }
 
     //#6 JWT에서 사용자 정보 가져오기
-    // 토큰에서 사용자 정보 가져오기
     public Claims getUserInfoFromToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
