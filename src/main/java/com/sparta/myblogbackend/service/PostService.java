@@ -1,16 +1,16 @@
 package com.sparta.myblogbackend.service;
 
+import com.sparta.myblogbackend.dto.ResponseMethodDto;
 import com.sparta.myblogbackend.dto.PostRequestDto;
 import com.sparta.myblogbackend.dto.PostResponseDto;
 import com.sparta.myblogbackend.entity.Post;
 import com.sparta.myblogbackend.jwt.JwtUtil;
 import com.sparta.myblogbackend.repository.PostRepository;
 import io.jsonwebtoken.Claims;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CookieValue;
 
 import java.util.List;
 
@@ -20,6 +20,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final JwtUtil jwtUtil;
+    private final ResponseMethodDto responseMethodDto;
 
 
     //# 게시글 작성
@@ -84,7 +85,7 @@ public class PostService {
         }
     }
     //# 선택 게시글 삭제
-    public Post deletePost(Long id, String tokenValue) {
+    public ResponseEntity<ResponseMethodDto> deletePost(Long id, String tokenValue) {
         // 해당 메모가 DB에 존재하는지 확인
         Post post = findPost(id);
         //쿠키에서 토큰 값을 가져와서 스트링 변수 token에 넣음
@@ -100,7 +101,7 @@ public class PostService {
         if(post.getUsername().equals(username)) {
             //해당 메모 삭제
             postRepository.delete(post);
-            return post;
+            return responseMethodDto.DeleteSuccessStatus();
         }else {
             throw new IllegalArgumentException("게시글을 작성한 사용자가 아닙니다.");
         }

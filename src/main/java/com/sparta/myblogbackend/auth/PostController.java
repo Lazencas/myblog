@@ -3,9 +3,11 @@ package com.sparta.myblogbackend.auth;
 
 import com.sparta.myblogbackend.dto.PostRequestDto;
 import com.sparta.myblogbackend.dto.PostResponseDto;
+import com.sparta.myblogbackend.dto.ResponseMethodDto;
 import com.sparta.myblogbackend.entity.Post;
 import com.sparta.myblogbackend.jwt.JwtUtil;
 import com.sparta.myblogbackend.service.PostService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +50,7 @@ public class PostController {
 
     //선택한 게시글 삭제
     @DeleteMapping("/posts/{id}")
-    public Post deletePost(@PathVariable Long id, @CookieValue(value = JwtUtil.AUTHORIZATION_HEADER) String tokenValue) {
+    public ResponseEntity<ResponseMethodDto> deletePost(@PathVariable Long id, @CookieValue(value = JwtUtil.AUTHORIZATION_HEADER) String tokenValue) {
         return postService.deletePost(id, tokenValue);
     }
 

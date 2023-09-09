@@ -2,12 +2,13 @@ package com.sparta.myblogbackend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpHeaders;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 @AllArgsConstructor
 @Getter
-public class LoginResponse {
+@Setter
+public class DeleteResponseDto {
     private int code;
     private HttpStatus httpStatus;
     private String message;

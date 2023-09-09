@@ -11,6 +11,4 @@ public class PostRequestDto {
     private String username;
     private String content;
     private LocalDateTime cteatedAt;
-
-
 }
