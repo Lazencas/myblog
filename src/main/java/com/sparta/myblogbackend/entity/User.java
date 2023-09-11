@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -24,6 +27,11 @@ public class User {
     @Column(nullable = true)
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;
+
+//  @OneToMany(fetch = FetchType.LAZY)
+//  @JoinColumn(name = "user_id")
+//  private List<Post> postList = new ArrayList<>();
+
 
     public User(String username, String password, UserRoleEnum role) {
         this.username = username;

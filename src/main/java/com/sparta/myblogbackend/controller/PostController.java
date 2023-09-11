@@ -1,9 +1,7 @@
-package com.sparta.myblogbackend.auth;
+package com.sparta.myblogbackend.controller;
 
 
-import com.sparta.myblogbackend.dto.PostRequestDto;
-import com.sparta.myblogbackend.dto.PostResponseDto;
-import com.sparta.myblogbackend.dto.ResponseMethodDto;
+import com.sparta.myblogbackend.dto.*;
 import com.sparta.myblogbackend.entity.Post;
 import com.sparta.myblogbackend.jwt.JwtUtil;
 import com.sparta.myblogbackend.service.PostService;
@@ -38,7 +36,7 @@ public class PostController {
 
     //선택한 게시글 조회
     @GetMapping("/posts/{id}")
-    public Post getPost(Long id) {
+    public PostResponseDto getPost(@PathVariable Long id) {
         return postService.getPost(id);
     }
 
@@ -59,6 +57,25 @@ public class PostController {
     public List<PostResponseDto> getPostByKeyword(String keyword){
         return  postService.getPostByKeyword(keyword);
     }
+
+    //댓글생성
+    @PostMapping("/posts/{id}/comment-write")
+    public CommentResponseDto createComment(@PathVariable Long id,@RequestBody CommentRequestDto requestDto,  @CookieValue(value = JwtUtil.AUTHORIZATION_HEADER) String tokenValue){
+        return postService.createComment(id,requestDto,tokenValue);
+    }
+
+    //댓글수정
+    @PutMapping("/posts/comment-update/{commentId}")
+    public CommentResponseDto updateComment(@PathVariable Long commentId, @RequestBody CommentRequestDto requestDto,  @CookieValue(value = JwtUtil.AUTHORIZATION_HEADER) String tokenValue){
+        return postService.updateComment(commentId,requestDto,tokenValue);
+    }
+
+    //댓글삭제
+    @DeleteMapping("/posts/comment-delete/{commentId}")
+    public ResponseEntity<ResponseMethodDto> deleteComment(@PathVariable Long commentId, @CookieValue(value = JwtUtil.AUTHORIZATION_HEADER) String tokenValue){
+        return postService.deleteComment(commentId,tokenValue);
+    }
+
 
 
 }

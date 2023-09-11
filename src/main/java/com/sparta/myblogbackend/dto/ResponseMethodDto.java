@@ -48,14 +48,14 @@ public class ResponseMethodDto {
     public ResponseEntity<ResponseMethodDto> DeleteSuccessStatus(){
         this.code = 200;
         this.httpStatus = HttpStatus.OK;
-        this.message = "게시글 삭제 성공!";
+        this.message = "게시글or댓글 삭제 성공!";
         return new ResponseEntity<>(this, this.getHttpStatus());
     }
 
     public ResponseEntity<ResponseMethodDto> DeleteFailStatus(){
         this.code = 400;
         this.httpStatus = HttpStatus.BAD_REQUEST;
-        this.message = "게시글 삭제 실패!";
+        this.message = "게시글or댓글 삭제 실패!";
         return new ResponseEntity<>(this, this.getHttpStatus());
     }
 }
